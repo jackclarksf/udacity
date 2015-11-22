@@ -32,7 +32,7 @@ var education = {
     }
   ]
 };
-console.log(json_education);
+console.log(education);
 
 var work = {
 	"jobs": [
@@ -52,7 +52,7 @@ var work = {
 	  }
 	],
 };
-console.log(json_work);
+console.log(work);
 
 var projects = {
 	"projects": [
@@ -72,6 +72,8 @@ var projects = {
 
 }
 
+console.log(projects);
+
 var bio = {
 	"name" : "James ",
 	"role" :  "Journalist ",
@@ -83,11 +85,11 @@ var bio = {
 		"location" : "San Francisco",
 	},
 	"welcomeMessage" : "Greetings, earthlings ",
-	"skills": [" lemon-threading ", "coffin carrying ", "a hundred stars ", "the house of grief ", "my mother's bones stretched out against her body "];
+	"skills": [" lemon-threading ", "coffin carrying ", "a hundred stars ", "the house of grief ", "my mother's bones stretched out against her body "],
     "bioPic" : "images/fry.jpg",
     //display: function
 }
-console.log(json_bio);
+console.log(bio);
 
 //***************
 //DISPLAY SECTION
