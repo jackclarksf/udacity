@@ -111,3 +111,20 @@ console.log(new_name_fiddle);
 //    finalName = names.join(" ");
 //    return finalName;
 //}
+
+
+var jack_clark = {};
+jack_clark.job = "course dev";
+
+var makeCourse = function() {
+  console.log("Made a course");
+}
+
+var courses = 0;
+while(jack_clark.job === "course dev") {
+  makeCourse();
+  courses = courses + 1;
+  if(courses === 10) {
+    jack_clark.job = "learning specialist";
+  }
+}

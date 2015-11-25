@@ -9,27 +9,12 @@ speed of light = 299792458 meters/second
 //TEST JS
 //
 
-var jack_clark = {};
-jack_clark.job = "course dev";
 
-var makeCourse = function() {
-	console.log("Made a course");
-}
+//console.log(jack_clark.job);
 
-var courses = 0;
-while(jack_clark.job === "course dev") {
-	makeCourse();
-	courses = courses + 1;
-	if(courses === 10) {
-		jack_clark.job = "learning specialist";
-	}
-}
-
-console.log(jack_clark.job);
-
-for(var i = 0; i<9; i++) {
-	console.log(i);
-}
+//for(var i = 0; i<9; i++) {
+//	console.log(i);
+//}
 
 //***************
 //DATA STRUCTURES
@@ -59,13 +44,6 @@ var education = {
   ]
 };
 console.log(education);
-
-var cheeses = ["emental", "cheddar", "nougat"];
-
-for (cheese in cheeses) {
-	console.log("Check");
-	console.log(cheeses[cheese]);
-}
 
 var work = {
 	"jobs": [
@@ -122,9 +100,8 @@ var bio = {
     "bioPic" : "images/fry.jpg",
     //display: function
 }
-console.log("COWABUNGER");
+
 console.log(bio);
-console.log(bio.skills);
 //QUIZ - WRITE IF TO CHECK IF STUFF IN BIO
 
 //***************
@@ -139,34 +116,13 @@ $("#header").prepend([formattedRole]);
 $("#header").prepend([formattedName]);
 
 var HTMLskillsStart = '<h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills" class="flex-box"></ul>';
-var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
+//var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
 var formattedSkills = HTMLskills.replace("%data%", bio["skills"]);
 
-function category_check(cat_check) {
-	if ("skills" in cat_check) {
-	  console.log("There are skills in bio");
-      $("#header").append([HTMLskillsStart]);
-      var formattedSkills = HTMLskills.replace("%data%", bio.skills[0]);
-      $("#skills").append([formattedSkills]);
-      var formattedSkills = HTMLskills.replace("%data%", bio.skills[1]);
-      $("#skills").append([formattedSkills]);
-      var formattedSkills = HTMLskills.replace("%data%", bio.skills[2]);
-      $("#skills").append([formattedSkills]);
-      var formattedSkills = HTMLskills.replace("%data%", bio.skills[3]);
-      $("#skills").append([formattedSkills]);
-	    }
-    else {
-    	console.log("Not sure what is going on here!");
-    }
-}
-
-//category_check(bio);
-//^WRITE A FUNCTION TO SIMPLIFY THIS ONE 11/22/2015
-//ACHIEVED! 11/24/2015
 
 
 function Printer_Funk(val, ind, arr) {
-	console.log("The element name is " + val + " and the element index is " + ind);
+	//console.log("The element name is " + val + " and the element index is " + ind);
 	var formattedSkills = HTMLskills.replace("%data%", bio.skills[ind]);
     $("#skills").append([formattedSkills]);
 }
@@ -191,21 +147,56 @@ category_check_loop(bio.skills);
 
 //jobs_category_check_loop(work.jobs);
 
+
 function check_object_contents(inp_obj) {
 	for (i in inp_obj) {
-		console.log("BEGIN");
-		console.log(i);
-		console.log(inp_obj[i]);
-			for (j in inp_obj[i]) {
-				console.log("test " + j);
-				console.log("other test " + inp_obj[i][j]);
-		}
+		var working_object = inp_obj[i];
+		$("#workExperience").append([HTMLworkStart]);
+			for (var key in working_object) {
+				if (working_object.hasOwnProperty(key)) {
+					if (key === "employer") {
+							var DOG_GONE = HTMLworkEmployer.replace("%data%", working_object[key]);
+						}
+					if (key === "title") {
+							var DOG_LEMON = HTMLworkTitle.replace("%data%", working_object[key]);
+					}
+				}
+			}
+		var TWO_HEADED_DOG = DOG_GONE + DOG_LEMON;
+		$(".work-entry:last").append([TWO_HEADED_DOG]);
 	}
 }
 
-console.log("LAUNCHING ANOTHER TEST");
+//SO THIS FUNCTION SORT OF WORKS BUT WE'RE DOING SOME BLOODY WEIRD LOOP STUFF
+//SOLUTION - BREAK DOWN INTO SUB FUNCTIONS AND RETURN ENTITIES
+//IT IS ALSO, APPARENTLY, TOTALLY WRONG
+//ACTUALLY, THIS FUNCTION WAS CORRECT, WE JUST HANDED PUNCTUATED IT CORRECTLY. LOL
+//OUR FUNCTION SEEMS TO HANDLE ERRORS BETTER
+
+//console.log("LAUNCHING ANOTHER TEST");
 check_object_contents(work.jobs);
-console.log("END");
+//console.log("END");
+
+function myFunction() {
+    return "lemon face";
+}
+
+var lemon = myFunction();
+console.log(lemon);
+
+function udacity_function() {
+	for (job in work.jobs) {
+		$("#workExperience").append(HTMLworkStart);
+
+		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+		var formattedEmployerTitle = formattedEmployer + formattedTitle;
+
+		$(".work-entry:last").append(formattedEmployerTitle);
+	}
+}
+
+//udacity_function();
 
 //below here is not USED. AT ALL!
 //below here is not USED. AT ALL!
@@ -253,3 +244,26 @@ function PrintThis(val, ind, arr) {
 //		console.log("other test " + work.jobs[i][j]);
 //	}
 //}
+
+
+function category_check(cat_check) {
+	if ("skills" in cat_check) {
+	  console.log("There are skills in bio");
+      $("#header").append([HTMLskillsStart]);
+      var formattedSkills = HTMLskills.replace("%data%", bio.skills[0]);
+      $("#skills").append([formattedSkills]);
+      var formattedSkills = HTMLskills.replace("%data%", bio.skills[1]);
+      $("#skills").append([formattedSkills]);
+      var formattedSkills = HTMLskills.replace("%data%", bio.skills[2]);
+      $("#skills").append([formattedSkills]);
+      var formattedSkills = HTMLskills.replace("%data%", bio.skills[3]);
+      $("#skills").append([formattedSkills]);
+	    }
+    else {
+    	console.log("Not sure what is going on here!");
+    }
+}
+
+//category_check(bio);
+//^WRITE A FUNCTION TO SIMPLIFY THIS ONE 11/22/2015
+//ACHIEVED! 11/24/2015
