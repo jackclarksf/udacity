@@ -51,14 +51,14 @@ var work = {
 	  	"employer": "The Register",
 	  	"title": "Reporter",
 	  	"location": "San Francisco",
-	  	"dates worked": "February 2013 to August 2014",
+	  	"dates_worked": "February 2013 to August 2014",
 	  	"description": "World's only distributed systems reporter"
 	  },
 	  {
 	  	"employer": "Bloomberg",
 	  	"title": "Reporter",
 	  	"location": "San Francisco",
-	  	"dates worked": "August 2014 to Present",
+	  	"dates_worked": "August 2014 to Present",
 	  	"description": "Artificial intelligence and so much more",
 	  }
 	],
@@ -167,6 +167,12 @@ function check_object_contents(inp_obj) {
 	}
 }
 
+// NEED DATES WORKED AND DESCRIPTION EG
+//	  	"dates worked": "August 2014 to Present",
+//	  	"description": "Artificial intelligence and so much more",
+//
+//
+
 //SO THIS FUNCTION SORT OF WORKS BUT WE'RE DOING SOME BLOODY WEIRD LOOP STUFF
 //SOLUTION - BREAK DOWN INTO SUB FUNCTIONS AND RETURN ENTITIES
 //IT IS ALSO, APPARENTLY, TOTALLY WRONG
@@ -174,7 +180,7 @@ function check_object_contents(inp_obj) {
 //OUR FUNCTION SEEMS TO HANDLE ERRORS BETTER
 
 //console.log("LAUNCHING ANOTHER TEST");
-check_object_contents(work.jobs);
+//check_object_contents(work.jobs);
 //console.log("END");
 
 function myFunction() {
@@ -193,10 +199,17 @@ function udacity_function() {
 		var formattedEmployerTitle = formattedEmployer + formattedTitle;
 
 		$(".work-entry:last").append(formattedEmployerTitle);
+		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates_worked);
+		var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+
+		$(".work-entry:last").append(formattedDates);
+		$(".work-entry:last").append(formattedDescription);
+		$(".work-entry:last").append(formattedLocation);
 	}
 }
 
-//udacity_function();
+udacity_function();
 
 //below here is not USED. AT ALL!
 //below here is not USED. AT ALL!
