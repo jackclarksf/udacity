@@ -163,3 +163,25 @@ $("#header").prepend([formattedSkills]);
 
 $("#main").append(work["position"]);
 $("#main").append(education.name);
+
+
+//SOME REGEX STUFF
+
+//var html = '<script src="http://hackyourwebsite.com/eviljavascript.js"></script>';
+
+//var charEscape = function(_html) {
+//    var newHTML = _html;
+//    newHTML = newHTML.replace( /\W/g, "C");
+    // How will you make sure that newHTML doesn't contain any < or > ?
+    // Your code goes here!
+
+    // Don't delete this line!
+//    return newHTML;
+//};
+//
+// Did your code work? The line below will tell you!
+//console.log(charEscape(html));
+
+//THEIR SOLUTION A BIT MORE PRECISE
+//newHTML = _html.replace(/</g, "&lt;");
+//newHTML = newHTML.replace(/>/g, "&gt;");
