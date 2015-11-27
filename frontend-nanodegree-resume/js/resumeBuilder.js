@@ -119,8 +119,6 @@ var HTMLskillsStart = '<h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills
 //var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
 var formattedSkills = HTMLskills.replace("%data%", bio["skills"]);
 
-
-
 function Printer_Funk(val, ind, arr) {
 	//console.log("The element name is " + val + " and the element index is " + ind);
 	var formattedSkills = HTMLskills.replace("%data%", bio.skills[ind]);
@@ -131,18 +129,7 @@ function category_check_loop(cat_check) {
 	cat_check.forEach (Printer_Funk);
 }
 
-function jobs_Printer_Funk(val, ind, arr) {
-	console.log("The element name is " + val + " and the element index is " + ind);
-	var HTMLworkStart = '<div class="work-entry"></div>';
-    $("#skills").append([HTMLworkStart]);
-}
-function jobs_category_check_loop(jobs_cat_check) {
-	console.log(jobs_cat_check);
-	jobs_cat_check.forEach (jobs_Printer_Funk);
-}
-
-console.log("Cheese train!!!");
-
+test_speech = "LEMON NIGHTMARE"
 category_check_loop(bio.skills);
 
 //jobs_category_check_loop(work.jobs);
@@ -210,6 +197,27 @@ function udacity_function() {
 }
 
 udacity_function();
+
+//THIS IS A BIT HACKY, BUT IT WORKS AT DISPLAYING. SEEMS TO ACCESS SUBCLASSES. NEED TO FIDDLE AROUND
+function contact_udacity_function() {
+	contact_terms = [];
+	contact_list = [];
+	for (contact in bio.contacts) {
+		console.log(contact_list);
+		console.log(contact_terms);
+		console.log(contact);
+		contact_list.push(bio.contacts[contact]);
+		contact_terms.push(contact);
+		formatted_contacts = HTMLcontactGeneric.replace("%contact%", contact);
+		formatted_contacts2 = formatted_contacts.replace("%data%", bio.contacts[contact]);
+		$("#topContacts").append(formatted_contacts2);
+	}
+}
+
+contact_udacity_function();
+
+
+
 
 //below here is not USED. AT ALL!
 //below here is not USED. AT ALL!
