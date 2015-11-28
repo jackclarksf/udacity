@@ -50,7 +50,7 @@ var work = {
 	  {
 	  	"employer": "The Register",
 	  	"title": "Reporter",
-	  	"location": "San Francisco",
+	  	"location": "San Juan",
 	  	"dates_worked": "February 2013 to August 2014",
 	  	"description": "World's only distributed systems reporter"
 	  },
@@ -216,8 +216,31 @@ function contact_udacity_function() {
 
 contact_udacity_function();
 
+function locationizer(work_obj) {
+	work_locations = [];
+	for (work in work_obj) {
+		work_locations.push(work_obj[work].location);
+	}
+	return work_locations;
+}
 
+loc_array = locationizer(work.jobs);
+console.log(loc_array);
 
+function inName(name_string) {
+	splitter = name_string.split(" ");
+	console.log(splitter);
+	console.log(splitter[1]);
+	splicedUp = splitter[1].toUpperCase();
+	together_again = splitter[0] + " "  + splicedUp;
+	console.log(together_again);
+	return together_again;
+
+}
+
+newName = inName("Jack CLArk");
+console.log(newName);
+$("#main").append(internationalizeButton);
 
 //below here is not USED. AT ALL!
 //below here is not USED. AT ALL!

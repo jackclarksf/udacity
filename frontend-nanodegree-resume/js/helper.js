@@ -92,7 +92,7 @@ $(document).click(function(loc) {
   logClicks(x, y);
 });
 
-loc();
+//loc();
 
 /*
 This is the fun part. Here's where we generate the custom Google Map for the website.
