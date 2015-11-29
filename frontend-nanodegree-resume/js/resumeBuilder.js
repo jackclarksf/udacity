@@ -83,6 +83,46 @@ var projects = {
 
 }
 
+projects.display = function() {
+ for (project in projects.projects) {
+ 	$("#projects").append(HTMLprojectStart);
+
+ 	var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+ 	var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+ 	var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+ 	var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
+ 	$(".project-entry:last").append(formattedProjectTitle);
+ 	$(".project-entry:last").append(formattedProjectDates);
+ 	$(".project-entry:last").append(formattedProjectDescription);
+ 	$(".project-entry:last").append(formattedProjectImage);
+ }
+}
+
+projects.display();
+
+
+
+
+function udacity_function() {
+	for (job in work.jobs) {
+		$("#workExperience").append(HTMLworkStart);
+
+		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+		var formattedEmployerTitle = formattedEmployer + formattedTitle;
+
+		$(".work-entry:last").append(formattedEmployerTitle);
+		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates_worked);
+		var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+
+		$(".work-entry:last").append(formattedDates);
+		$(".work-entry:last").append(formattedDescription);
+		$(".work-entry:last").append(formattedLocation);
+	}
+}
+
+
 console.log(projects);
 
 var bio = {
@@ -228,18 +268,15 @@ loc_array = locationizer(work.jobs);
 console.log(loc_array);
 
 function inName(name_string) {
-	splitter = name_string.split(" ");
-	console.log(splitter);
-	console.log(splitter[1]);
-	splicedUp = splitter[1].toUpperCase();
-	together_again = splitter[0] + " "  + splicedUp;
-	console.log(together_again);
-	return together_again;
+	console.log("Testing: " + name_string);
+	name_string = name_string.trim().split(" ");
+	name_string[1] = name_string[1].toUpperCase();
+	name_string[0] = name_string[0].slice(0, 1).toUpperCase() + name_string[0].slice(1).toLowerCase();
+	return name_string[0] +" "+name_string[1];
 
 }
 
-newName = inName("Jack CLArk");
-console.log(newName);
+//inName("Jack CLArk");
 $("#main").append(internationalizeButton);
 
 //below here is not USED. AT ALL!
