@@ -71,13 +71,13 @@ var projects = {
 	  	"title": "Cheese preparation",
 	  	"dates": "March 2013",
 	  	"description": "The ultimate dairy curation",
-	  	"images": "images/197x148.jpg"
+	  	"images": "images/197x148.gif",
 	  },
 	  {
 	  	"title": "AI research",
 	  	"dates": "March 2013",
 	  	"description": "The ultimate dairy curation",
-	  	"images": "images/197x148.jpg"
+	  	"images": "images/197x148.gif",
 	  }
 	]
 
@@ -85,22 +85,28 @@ var projects = {
 
 projects.display = function() {
  for (project in projects.projects) {
+ 	console.log("Cheese wagon!!!!");
  	$("#projects").append(HTMLprojectStart);
 
  	var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
  	var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
  	var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+ 	console.log("Basic image test: " + projects.projects[project].images);
  	var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
  	$(".project-entry:last").append(formattedProjectTitle);
  	$(".project-entry:last").append(formattedProjectDates);
  	$(".project-entry:last").append(formattedProjectDescription);
  	$(".project-entry:last").append(formattedProjectImage);
+
+ 	//if needed, check there's a picture, eg
+ 	//if (projects.projects[project].images.length > 0) {
+ 	//   for (image in projects.projects[project].images) {
+ 	//
  }
 }
 
 projects.display();
-
-
+//SO FOR SOME WACKY REASON IT CAN'T FIND THE PICTURE HERE
 
 
 function udacity_function() {
@@ -121,7 +127,6 @@ function udacity_function() {
 		$(".work-entry:last").append(formattedLocation);
 	}
 }
-
 
 console.log(projects);
 
@@ -224,12 +229,11 @@ function udacity_function() {
 		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
 		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
 		var formattedEmployerTitle = formattedEmployer + formattedTitle;
-
-		$(".work-entry:last").append(formattedEmployerTitle);
-		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
 		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates_worked);
 		var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
 
+        $(".work-entry:last").append(formattedEmployerTitle);
 		$(".work-entry:last").append(formattedDates);
 		$(".work-entry:last").append(formattedDescription);
 		$(".work-entry:last").append(formattedLocation);
@@ -278,6 +282,7 @@ function inName(name_string) {
 
 //inName("Jack CLArk");
 $("#main").append(internationalizeButton);
+$("#mapDiv").append(googleMap);
 
 //below here is not USED. AT ALL!
 //below here is not USED. AT ALL!
