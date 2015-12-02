@@ -23,13 +23,13 @@ var education = {
 	"schools": [
 	  {
 	  	"name": "UEA",
-	  	"city": "Norwich, Norfolk, UK",
+	  	"location": "Norwich, Norfolk, UK",
 	  	"degree": "BA",
 	  	"major": ["Creative writing", "Literature"]
 	  },
 	  {
 	  	"name": "NYU",
-	  	"city": "New York, USA",
+	  	"location": "New York, USA",
 	  	"degree": "SPACE",
 	  	"major": ["orbital mechanics", "cheese architecture", "lemonade creation"]
 
