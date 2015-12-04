@@ -30,7 +30,7 @@ var education = {
 	  {
 	  	"name": "NYU",
 	  	"location": "New York, USA",
-	  	"degree": "SPACE",
+	  	"degree": "MA",
 	  	"major": ["orbital mechanics", "cheese architecture", "lemonade creation"]
 
 	  }
@@ -44,6 +44,26 @@ var education = {
   ]
 };
 console.log(education);
+
+//NEED TO PUT A LINE BREAK HERE I THINK
+function education_school_function() {
+	for (school in education.schools) {
+		$("#education").append(HTMLschoolStart);
+
+		var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[school].name);
+		var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+		var SchoolName = formattedSchoolName = formattedSchoolDegree;
+		var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+		console.log(education.schools[school].major);
+		var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[school].major);
+
+		$(".education-entry:last").append(SchoolName);
+		$(".education-entry:last").append(formattedSchoolLocation);
+		$(".education-entry:last").append(formattedSchoolMajor);
+	}
+}
+
+education_school_function();
 
 var work = {
 	"jobs": [
@@ -107,26 +127,6 @@ projects.display = function() {
 
 projects.display();
 //SO FOR SOME WACKY REASON IT CAN'T FIND THE PICTURE HERE
-
-
-function udacity_function() {
-	for (job in work.jobs) {
-		$("#workExperience").append(HTMLworkStart);
-
-		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-		var formattedEmployerTitle = formattedEmployer + formattedTitle;
-
-		$(".work-entry:last").append(formattedEmployerTitle);
-		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates_worked);
-		var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
-
-		$(".work-entry:last").append(formattedDates);
-		$(".work-entry:last").append(formattedDescription);
-		$(".work-entry:last").append(formattedLocation);
-	}
-}
 
 console.log(projects);
 
