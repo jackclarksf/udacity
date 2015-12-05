@@ -25,18 +25,29 @@ h6 {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 8vw;
   color: #f5a623;
   line-height: 48px;
   display: inline;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
 h2 {
   font-weight: bold;
   font-size: 24px;
-  color: #999;
+  color: #f5a623;
   line-height: 29px;
   padding: 10px;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+}
+
+.top-right-text {
+  font-size: 5.5vw;
+  color: #f5a623;
+  line-height: 40px;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  float: right;
+
 }
 
 h3 {
