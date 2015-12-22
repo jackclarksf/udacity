@@ -1,6 +1,7 @@
 __author__ = 'iamja_000'
 
 print("Testing")
+import random
 
 #Challenge Brief: Design a program that uses procedural techniques to create a pirate map. The pirate map is an image of any dimensions that should look similar to the following examples, or at least contain similar content.
 #
@@ -28,28 +29,53 @@ class Map_Procedural:
         self.water_generation()
 
     def water_generation(self):
-        water_level = input("Please specify how wet you'd like it, on a scale of one to three: ")
-        sizes = [0, 1, 2, 3]
-        while int(water_level) not in sizes:
-            print("Your selection of {} is invalid as is not in {} ".format(water_level, sizes))
-            water_level = input("Try again (1 to 3), please: ")
-        else:
-            water_math = (len(self.base_map[0])*len(self.base_map[0]))
-            print("Our water math is {} divided by water_level input of {}".format(water_math, water_level))
-            squares_to_fill = int(water_math) / int(water_level)
-            print("We need to fill {} squares".format(squares_to_fill))
+        water_level = input("Please specify how wet you'd like it, by percentage: ")
+        float_level = float(water_level)
+        print("Our level is now {}".format(float_level))
+        squares = (len(self.base_map[0])*len(self.base_map[0]))
+        print("Percentage {} filling {} squares".format(float_level, squares))
+        percent_operate = 100/float_level
+        print("Our multiplier is {}".format(percent_operate))
+        final_number = squares / percent_operate
+        print("Our final number of squares should be {}".format(final_number))
+        number_squares = (float(float_level)/float(squares)) / 100.0
             #PROBABLY NEED TO SORT OUT THE FLOAT THING HERE
             #INITIALIZE THE SCREEN_DRAW FUNCTION HERE
-            self.draw_new_entities("W", squares_to_fill)
+        self.base_map = self.draw_new_entities("W", float_level)
 
-    def draw_new_entities(self, entity_to_draw, entity_count):
-        i = 0
-        while i < entity_count:
-            for i in self.base_map:
-                self.base_map[i][i].replace("$", entity_to_draw)
-                i += 1
-                #NEED TO FIX THIS LIST NAVIGATION, PROBABLY
+#NEW IDEA
 
+#this function takes in an entity to draw, and a percentage count and creates a string with the changed characters
+#now need to split string into multiple strings
+
+#NEW FUNCTION IDEA - DEF DRAW NEW ENTITIES
+#RANDOMLY FILL A SPOT IN STRING FOR EACH ONE
+#MAKE SURE IT'S FILLED AND IF COLLISION THEN GO AGAIN
+#RETURN ENDPOINT
+
+ #   def draw_new_entities(self, entity_to_draw, entity_count):
+ #       joined_map = sum(self.base_map, [])
+ #       j = 0
+ #       for i in joined_map:
+ #           #print(" i' is {} and j is {}".format(i, j))
+ #           if random.randint(0, 100) < entity_count:
+ #               #print(joined_map[j])
+ #               joined_map[j] = entity_to_draw
+ #               #print(joined_map[j])
+ #           j += 1
+  #      #print(joined_map)
+ #       joined_map2 = self.list_joiner(joined_map, size)
+ #       #print(joined_map2)
+ #       return joined_map2
+
+    def list_joiner(self, arr_name, arr_size):
+        arrs = []
+        while len(arr_name) > arr_size:
+            pice = arr_name[:arr_size]
+            arrs.append(pice)
+            arr_name = arr_name[arr_size:]
+        arrs.append(arr_name)
+        return arrs
 
     def display_map(self):
         for i in self.base_map:
@@ -60,17 +86,15 @@ class Map_Procedural:
         i = 0
         dog = (len(self.base_map))
         while i < (dog-1):
-            #print(i)
-            #print(self.base_map[i])
             i += 1
             linked = ', '.join(self.base_map[i])
             linked_clean = linked.replace(",", " ")
             string_to_print += linked_clean
             string_to_print += "\n"
-        print(string_to_print)
+        return string_to_print
 
 
 
 pirate_game = Map_Procedural()
-pirate_game.display_map()
-pirate_game.map_to_string()
+#pirate_game.display_map()
+print(pirate_game.map_to_string())
