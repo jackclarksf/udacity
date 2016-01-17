@@ -2,6 +2,7 @@ __author__ = 'iamja_000'
 
 print("Testing")
 import random
+from random import randrange
 
 #Challenge Brief: Design a program that uses procedural techniques to create a pirate map. The pirate map is an image of any dimensions that should look similar to the following examples, or at least contain similar content.
 #
@@ -27,6 +28,8 @@ class Map_Procedural:
         self.water = []
         #print("OK, your base map is: {}".format(self.base_map))
         self.water_generation()
+        self.treasure_placement("$")
+        self.clumping("W")
 
     def water_generation(self):
         water_level = input("Please specify how wet you'd like it, by percentage: ")
@@ -41,32 +44,72 @@ class Map_Procedural:
         number_squares = (float(float_level)/float(squares)) / 100.0
             #PROBABLY NEED TO SORT OUT THE FLOAT THING HERE
             #INITIALIZE THE SCREEN_DRAW FUNCTION HERE
-        self.base_map = self.draw_new_entities("W", float_level)
+        self.base_map = self.draw_map_entities("W", final_number)
 
-#NEW IDEA
+    #SCAN LINES IN MAP - DONE
+    #GET POSITIONS OF CLUMP_ITEM - DONE
+    #WORK OUT HOW TO CLUMP TOGETHER
+    def clumping(self, clump_item):
+        print("Starting clumping")
+        total_location_list = []
+        test_line = 0
+        while test_line < size:
+            line_location_list = []
+            for i, j in enumerate(self.base_map[test_line]):
+                if j == clump_item:
+                    #print(i)
+                    line_location_list.append(i)
+            test_line += 1
+            total_location_list.append(line_location_list)
+        print("Our final loc list is... {}".format(total_location_list))
+        longest = max(total_location_list, key=len)
+        print("Our longest list is {}".format(longest))
+        longest_pos = total_location_list.index(longest)
+        print("Location of longest list is: {}".format(longest_pos))
+        if longest_pos == 0:
+            next_list = total_location_list[longest_pos+1]
+        else:
+            next_list = total_location_list[longest_pos-1]
+        print("adjacent list is: {}".format(next_list))
+        next_list_loc = total_location_list.index(next_list)
+        print("location of adjacent list is: {}".format(next_list_loc))
+        #NEXT STEPS = FIND LINE WITH LARGEST NUMBERS. MAKE THIS DOMINANT. CLUMP OTHERS TO BE NEAR IT.
+        #STEP UP AND DOWN THROUGH LINES, EXPANDING ^ AND THEN ONWE DOWN, TILL DONE
+        self.list_fiddler(longest_pos, next_list_loc)
 
-#this function takes in an entity to draw, and a percentage count and creates a string with the changed characters
-#now need to split string into multiple strings
+    def list_fiddler(self, list_to_check_against, list_to_change):
+        print(list_to_check_against)
+        print(list_to_change)
 
-#NEW FUNCTION IDEA - DEF DRAW NEW ENTITIES
-#RANDOMLY FILL A SPOT IN STRING FOR EACH ONE
-#MAKE SURE IT'S FILLED AND IF COLLISION THEN GO AGAIN
-#RETURN ENDPOINT
 
- #   def draw_new_entities(self, entity_to_draw, entity_count):
- #       joined_map = sum(self.base_map, [])
- #       j = 0
- #       for i in joined_map:
- #           #print(" i' is {} and j is {}".format(i, j))
- #           if random.randint(0, 100) < entity_count:
- #               #print(joined_map[j])
- #               joined_map[j] = entity_to_draw
- #               #print(joined_map[j])
- #           j += 1
-  #      #print(joined_map)
- #       joined_map2 = self.list_joiner(joined_map, size)
- #       #print(joined_map2)
- #       return joined_map2
+    def treasure_placement(self, land_to_place_on):
+        joined_map = sum(self.base_map, [])
+        spot_to_draw = self.spot_selection(joined_map, land_to_place_on)
+        print("Placing X at {}".format(spot_to_draw))
+        joined_map[spot_to_draw] = "X"
+        joined_map_treasure = self.list_joiner(joined_map, size)
+        print("Created joined map")
+        self.base_map = joined_map_treasure
+
+    def draw_map_entities(self, entity_to_draw, number_to_draw):
+        joined_map = sum(self.base_map, [])
+        drawn_entities = 1
+        while drawn_entities <= number_to_draw:
+            #print("Drawing entity {} out of {}".format(drawn_entities, number_to_draw))
+            spot_to_draw = self.spot_selection(joined_map, "$")
+            joined_map[spot_to_draw] = "W"
+            drawn_entities += 1
+        joined_map2 = self.list_joiner(joined_map, size)
+        return joined_map2
+
+    def spot_selection(self, checkable, check_mark):
+        random_spot = randrange(0, len(checkable))
+        #print("Our random spot is {} and at this point there is {}".format(random_spot, checkable[random_spot]))
+        while checkable[random_spot] != check_mark:
+            #print("Error, try again")
+            random_spot = randrange(0, len(checkable))
+            #print("Our random spot is NOW {} and at this point there is {}".format(random_spot, checkable[random_spot]))
+        return random_spot
 
     def list_joiner(self, arr_name, arr_size):
         arrs = []
@@ -93,8 +136,20 @@ class Map_Procedural:
             string_to_print += "\n"
         return string_to_print
 
+    def string_count(self):
+        count = 0
+        joined_map = sum(self.base_map, [])
+        for i in joined_map:
+            if i == "W":
+                count +=1
+        print("Count of W is: {}".format(count))
+
+
 
 
 pirate_game = Map_Procedural()
-#pirate_game.display_map()
+print("Displaying map")
+pirate_game.display_map()
+print("Starting drawing")
 print(pirate_game.map_to_string())
+pirate_game.string_count()
