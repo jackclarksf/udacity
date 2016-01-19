@@ -29,6 +29,7 @@ class Map_Procedural:
         #print("OK, your base map is: {}".format(self.base_map))
         self.water_generation()
         self.treasure_placement("$")
+        self.display_map()
         self.clumping("W")
 
     def water_generation(self):
@@ -61,13 +62,18 @@ class Map_Procedural:
                     line_location_list.append(i)
             test_line += 1
             total_location_list.append(line_location_list)
+        list_length = len(total_location_list)
+        print("Checking lists against {}".format(len(total_location_list)))
         print("Our final loc list is... {}".format(total_location_list))
         longest = max(total_location_list, key=len)
         print("Our longest list is {}".format(longest))
         longest_pos = total_location_list.index(longest)
+        initial_longest_pos = total_location_list.index(longest)
         print("Location of longest list is: {}".format(longest_pos))
+        direction = 0
         if longest_pos == 0:
             next_list = total_location_list[longest_pos+1]
+            direction += 1
         else:
             next_list = total_location_list[longest_pos-1]
         print("adjacent list is: {}".format(next_list))
@@ -75,11 +81,57 @@ class Map_Procedural:
         print("location of adjacent list is: {}".format(next_list_loc))
         #NEXT STEPS = FIND LINE WITH LARGEST NUMBERS. MAKE THIS DOMINANT. CLUMP OTHERS TO BE NEAR IT.
         #STEP UP AND DOWN THROUGH LINES, EXPANDING ^ AND THEN ONWE DOWN, TILL DONE
-        self.list_fiddler(longest_pos, next_list_loc)
+        self.list_fiddler(longest_pos, next_list_loc, total_location_list)
+        lists_to_check_against = 2
+        while lists_to_check_against < list_length:
+            print("Check list is {} and lists to check are {}".format(lists_to_check_against, list_length))
+            print("Now checking: {} against: {}".format(longest_pos, next_list_loc))
+            if next_list_loc == 0:
+                print("Uh oh, we could go below. Our seed was {}".format(initial_longest_pos))
+            elif direction == 0:
+                longest_pos -= 1
+                next_list_loc -=1
+                self.list_fiddler(longest_pos, next_list_loc, total_location_list)
+                lists_to_check_against += 1
+                #we have a weird list indexing problem here
+            elif direction == 1:
+                longest_pos += 1
+                next_list_loc +=1
+                self.list_fiddler(longest_pos, next_list_loc, total_location_list)
+                lists_to_check_against += 1
 
-    def list_fiddler(self, list_to_check_against, list_to_change):
+
+    def list_fiddler(self, list_to_check_against, list_to_change, list_to_check):
         print(list_to_check_against)
+        string_check = list_to_check[list_to_check_against]
+        compare_string = list_to_check[list_to_change]
+        print("Checking string: {} with {} against string {} with {}".format(list_to_check_against, string_check, list_to_change, compare_string))
+        j = 0
+        string_length = len(list_to_check[list_to_check_against])
+        for i in compare_string:
+            print("I is: {} and j is: {}".format(i, j))
+            #print("I is {} and j is {} and length is: {} and string check is {}".format(i, j, string_length, string_check[j]))
+            #IT'S POSSIBLE THE ABOVE PRINT STATEMENT IS CRASHING IT! REWRITE BELOW
+
+            if j == string_length-1:
+                print("At our limit, buddy")
+                if string_check[(int(string_length))-1] < i:
+                    compare_string[j] -= 1
+                elif string_check[(int(string_length))-1] > i:
+                    compare_string[j] += 1
+                print("String is now: {}".format(compare_string))
+            elif i == string_check[j]:
+                print("Collision!")
+            else:
+                print("i {} in {} is not same as string_check j: {} in {}".format(i, compare_string, string_check[j], string_check))
+                if string_check[j] < i:
+                    compare_string[j] -= 1
+                elif string_check[j] > i:
+                    compare_string[j] += 1
+                print("String is now: {}".format(compare_string))
+            j += 1
         print(list_to_change)
+
 
 
     def treasure_placement(self, land_to_place_on):
@@ -106,7 +158,6 @@ class Map_Procedural:
         random_spot = randrange(0, len(checkable))
         #print("Our random spot is {} and at this point there is {}".format(random_spot, checkable[random_spot]))
         while checkable[random_spot] != check_mark:
-            #print("Error, try again")
             random_spot = randrange(0, len(checkable))
             #print("Our random spot is NOW {} and at this point there is {}".format(random_spot, checkable[random_spot]))
         return random_spot
