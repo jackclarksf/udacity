@@ -10,8 +10,9 @@ class LIST_TESTER:
     def __init__(self):
         print("Our size is {}".format(size))
         self.base_map = [[(random.choice("$X")) for i in range(size)] for i in range(size)]
+        self.display_map()
         long_list_pos = self.list_sort_system()
-        #print("Our long list is: {}".format(long_list_pos))
+        print("Our long list is: {}".format(long_list_pos))
         self.list_stepper(long_list_pos)
         print("Cheese!")
 
@@ -53,7 +54,6 @@ class LIST_TESTER:
             self.list_modifier((random.choice(["up", "down"])),list_seed)
 
 
-
     def list_modifier(self, direction, list_start_point):
         print("OK we are going: {}".format(direction))
         our_seed = list_start_point
@@ -62,7 +62,7 @@ class LIST_TESTER:
             list_start_point = list_start_point+1
             while list_start_point < size:
                 print("up!: {}".format(self.base_map[list_start_point]))
-                #COMPARISON AND CHANGE OPERATION GOES HERE
+                self.list_changer(list_start_point-1, list_start_point)
                 list_start_point += 1
                 count += 1
             print("G'UP Our list start point is now: {} which is same as size {} and count is {}".format(list_start_point, size, count))
@@ -71,22 +71,21 @@ class LIST_TESTER:
                 while our_seed > 0:
                     our_seed -= 1
                     print("down!: {}".format(self.base_map[our_seed]))
-                    #COMPARISON AND CHANGE OPERATION GOES HERE
+                    self.list_changer(our_seed+1, our_seed)
                     count += 1
                 print("G'UP THEN G'DOWN Our list position is now: {} which is same as size {} and count is {}".format(our_seed, size, count))
 
         elif direction == "down":
-            print("List start point is: {}".format(list_start_point))
             list_start_point = list_start_point-1
-            print("List start point is: {}".format(list_start_point))
             while list_start_point >= 0:
-                print("down!: {}".format(self.base_map[list_start_point]))
-                #COMPARISON AND CHANGE OPERATION GOES HERE
                 if list_start_point == 0:
+                    print("down!: {}".format(self.base_map[list_start_point]))
+                    self.list_changer(list_start_point+1, list_start_point)
                     count += 1
                     list_start_point -= 1
                     print("We are at zero and list_start_point is {} and count is now {}".format(list_start_point, count))
                 else:
+                    self.list_changer(list_start_point+1, list_start_point)
                     list_start_point -= 1
                     count += 1
                 print("G'DOWN Our list start point is now: {} and our seed was {} and size is {} and count is {}".format(list_start_point, our_seed, size, count))
@@ -95,19 +94,41 @@ class LIST_TESTER:
                 while our_seed < size-1:
                     our_seed += 1
                     print("up! with seed: {} and list: {}".format(our_seed, self.base_map[our_seed]))
-                    #COMPARISON AND CHANGE OPERATION GOES HERE
+                    self.list_changer(our_seed-1, our_seed)
                     count += 1
                 print("G'DOWN THEN G'UP Our list position is now: {} which is same as size {} and count is {}".format(our_seed, size, count))
 
+    def list_changer(self, list_to_check, list_to_change):
+        #FUNCTION THAT READS THE CHECK LIST, THEN CHANGES THE LIST TO MATCH IT
+        print("So that means we're comparing list {} {} against list {} {}".format(list_to_change, self.base_map[list_to_change], list_to_check, self.base_map[list_to_check]))
+        change_list = []
+        check_list = []
+        for i, j in enumerate(self.base_map[list_to_change]):
+            if j == "X":
+                change_list.append(i)
+        for i, j in enumerate(self.base_map[list_to_check]):
+            if j == "X":
+                check_list.append(i)
+        print("So positions of X to check are {} against {}".format(change_list, check_list))
 
-        #GO UP OR GO DOWN
-        #BRING ENTITIES CLOSER
-        #INCREMENENT COUNT
-        #IF YOU REACH 0, THEN START FROM TOP AND DESCEND TO SEED
-        #IF YOU REACH TOP, THEN START FROM BOTTOM AND ASCEND TO SEED
-        print("Lemon")
-
-
+        success = 0
+        for i in change_list:
+            length_list = len(change_list)
+            print("Length is {} and success is {}".format(length_list, success))
+            while success < length_list:
+                for j in check_list:
+                    if i == j:
+                        print("Success, {} is same as {}".format(i, j))
+                        success += 1
+                    else:
+                        if i > j:
+                            print("i {} is greater than j {}".format(i, j))
+                            i -= 1
+                            success += 1
+                        elif i < j:
+                            print("i {} is less than j {}".format(i, j))
+                            i += 1
+                            success += 1
 
 game = LIST_TESTER()
 game.display_map()
