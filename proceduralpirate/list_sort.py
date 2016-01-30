@@ -40,12 +40,10 @@ class LIST_TESTER:
 
         for position, list in aggregated_dict.items():
             if list == longest:
-                print("!!!! {}".format(position))
                 return position
 
     def list_stepper(self, list_seed):
-        print("Our list seed is: {}".format(list_seed))
-        print("So base string is: {}".format(self.base_map[list_seed]))
+        print("Our list seed is: {} \n base string is {} ".format(list_seed, self.base_map[list_seed]))
         if list_seed == 0:
             self.list_modifier("up", list_seed)
         elif list_seed == size-1:
@@ -111,24 +109,39 @@ class LIST_TESTER:
                 check_list.append(i)
         print("So positions of X to check are {} against {}".format(change_list, check_list))
 
-        success = 0
-        for i in change_list:
-            length_list = len(change_list)
-            print("Length is {} and success is {}".format(length_list, success))
-            while success < length_list:
-                for j in check_list:
-                    if i == j:
-                        print("Success, {} is same as {}".format(i, j))
-                        success += 1
-                    else:
-                        if i > j:
-                            print("i {} is greater than j {}".format(i, j))
-                            i -= 1
-                            success += 1
-                        elif i < j:
-                            print("i {} is less than j {}".format(i, j))
-                            i += 1
-                            success += 1
+        if (len(change_list) == 0 or len(check_list) == 0):
+            print("No length!")
+
+        else:
+            for i in change_list:
+                length_list = len(change_list)
+                print("Length is {} and i is {}".format(length_list, i))
+                if self.is_same(i, check_list):
+                    print("i {} has a buddy in there".format(i))
+                else:
+                    print("Gotta do it")
+                    self.list_manipulator(i, check_list, change_list)
+
+
+            #for j in check_list:
+            #    print("Distance between i {} and j {} is {}".format(i, j, (abs(i-j))))
+            #    if i == j:
+            #        print("Success!")
+
+    def list_manipulator(self, value, list_to_check, change_list):
+        abs_vals = []
+        list_vals = []
+        for i in list_to_check:
+            abs_vals.append(abs(value-i))
+            list_vals.append(i)
+        print(abs_vals)
+        print(list_vals)
+        print(min(abs_vals))
+
+    def is_same(self, value, list_to_check):
+        for i in list_to_check:
+            if value == i:
+                return True
 
 game = LIST_TESTER()
 game.display_map()
