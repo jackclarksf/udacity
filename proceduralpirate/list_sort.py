@@ -116,11 +116,8 @@ class LIST_TESTER:
             for i in change_list:
                 length_list = len(change_list)
                 print("Length is {} and i is {}".format(length_list, i))
-                if self.is_same(i, check_list):
-                    print("i {} has a buddy in there".format(i))
-                else:
-                    print("Gotta do it")
-                    self.list_manipulator(i, check_list, change_list)
+                if not self.is_same(i, check_list):
+                    self.list_manipulator(i, check_list, change_list, list_to_check, list_to_change)
 
 
             #for j in check_list:
@@ -128,15 +125,32 @@ class LIST_TESTER:
             #    if i == j:
             #        print("Success!")
 
-    def list_manipulator(self, value, list_to_check, change_list):
+    def list_manipulator(self, value, check_list, change_list, list_to_check, list_to_change):
         abs_vals = []
         list_vals = []
-        for i in list_to_check:
+        for i in check_list:
             abs_vals.append(abs(value-i))
             list_vals.append(i)
-        print(abs_vals)
-        print(list_vals)
-        print(min(abs_vals))
+        dog = min(abs_vals)
+        zipped_list = zip(list_vals, abs_vals)
+        print("Candidate list: {} \n Checked value: {} \n Check against: {} \n Distances:     {} Min distance: {} \n zipped list: {}".format(change_list, value, check_list, abs_vals, dog, list(zipped_list)))
+        print("Value {} plus abs is {} \n value {} minus abs is {} AND SIZE IS {}".format(value, value+dog, value, value-dog, size))
+        if value+dog < size:
+            if value+dog not in change_list:
+                print("Looks like plus isn't in here")
+                print(self.base_map[list_to_change])
+                print(self.base_map[list_to_change][value])
+                self.base_map[list_to_change][value] = "$"
+                self.base_map[list_to_change][value+dog] = "X"
+        elif value-dog >= 0:
+            if value-dog not in change_list:
+                print("looks like neg isn't in here")
+                print(self.base_map[list_to_change])
+                print(self.base_map[list_to_change][value])
+                self.base_map[list_to_change][value] = "$"
+                self.base_map[list_to_change][value-dog] = "X"
+        print("Our new list here is {}".format(self.base_map[list_to_change]))
+        #NEED TO PUT A LENGTH THING IN HERE
 
     def is_same(self, value, list_to_check):
         for i in list_to_check:
