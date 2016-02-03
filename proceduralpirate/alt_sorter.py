@@ -37,6 +37,7 @@ class LIST_SORTER:
         list_check_value = 0
         print("Starting list changer")
         for i in list_major_positions:
+            empty = 0
             print(list_major_positions)
             print(i)
             print(value)
@@ -44,9 +45,11 @@ class LIST_SORTER:
             if i < (len(value))-1:
                 print("Checking i {} plus one {} and minus one {} in base list with length: {}".format(i, i+1, i-1, len(value)))
                 if self.list_neighbour_check(value[i-1], choice_2):
-                    print("Swappable value below!")
-                elif self.list_neighbour_check(value[i+1], choice_2):
-                    print("Swappable value above!")
+                    empty += 1
+                if self.list_neighbour_check(value[i+1], choice_2):
+                    empty += 1
+                if empty == 2:
+                    print("Empty on both sides, we should move")
                 else:
                     print("Looks like collisions...")
 
