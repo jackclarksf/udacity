@@ -35,13 +35,21 @@ class LIST_SORTER:
 
     def list_changer(self, value, list_major_positions):
         list_check_value = 0
-        print("Starting list changer")
         for i in list_major_positions:
+            print("Our list positions are {} and increment is {} and step is {} and prev is one is {}".format(list_major_positions, i, list_check_value, list_major_positions[list_check_value-1]))
             empty = 0
             print(list_major_positions)
             print(i)
             print(value)
             print(len(value))
+            if list_check_value == 0:
+                print("Distance between us and upper is: {}".format(abs(list_major_positions[list_check_value] - list_major_positions[list_check_value+1])))
+                if abs(list_major_positions[list_check_value] - list_major_positions[list_check_value+1]) > 1:
+                    print("We should put you next to: {} which is number {} and currently {}".format(list_major_positions[list_check_value+1], list_major_positions[list_check_value+1]-1, value[(list_major_positions[list_check_value+1]-1)]))
+                    value[(list_major_positions[list_check_value+1]-1)] = choice_1
+                    value[(list_major_positions[list_check_value])] = choice_2
+            print("I is now... \n {}".format(value))
+
             if i < (len(value))-1:
                 print("Checking i {} plus one {} and minus one {} in base list with length: {}".format(i, i+1, i-1, len(value)))
                 if self.list_neighbour_check(value[i-1], choice_2):
@@ -52,6 +60,7 @@ class LIST_SORTER:
                     print("Empty on both sides, we should move")
                 else:
                     print("Looks like collisions...")
+            list_check_value += 1
 
 
     def list_neighbour_check(self, checked_list_entity, value):
