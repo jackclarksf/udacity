@@ -7,6 +7,7 @@ import random
 import time
 
 size = int(input("How long dya want your lists and map size, then?"))
+
 choice_1 = str(input("What is the dominant character on terrain?"))
 choice_2 = str(input("What is another character on terrain"))
 
